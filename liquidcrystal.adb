@@ -211,8 +211,24 @@ package body LiquidCrystal is
    end Put;
    
    procedure Put(I: in Integer) is
+   
+     procedure Put2(N : Integer) is
+     begin
+       if N > 0 then
+         Put2(N / 10);
+         Put(Character'Val(48+N mod 10));
+       end if;
+     end Put2;
+
    begin
-      null; -- Put(Integer'Image(I));
+     if I < 0 then
+       Put('-');
+       Put2(-I);
+     elsif I > 0 then
+       Put2(I);
+     else
+       Put('0');
+     end if;
    end Put;
    
    -- low level procedures:
